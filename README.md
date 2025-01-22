@@ -72,7 +72,38 @@ A questo punto:
 - Creare una nuova connessione all’indirizzo Ip della scheda. 
 - Inserire utente e password.
 
+
 Vedremo comparire l’intero schermo della Raspberry sul nostro PC.
 Sarà possibile interagire con la scheda utilizzando direttamente la tastiera e il mouse del PC.
 
 ![image](https://github.com/user-attachments/assets/36b0fc16-56d4-438b-8258-cbde7a747aec)
+
+
+## Controllare Jack da linea di comando
+
+Il server Jack, può essere completamente controllato da linea di comando.
+Da linea di comando possiamo avviare, fermare il server, creare connessioni, controllare il suo funziona-mento e gestire molte altre cose.
+
+Con il comando
+
+- $jackd -d alsa -d hw:1 -r 44100 -p 1024 -n 2
+
+possiamo avviare il server utilizzando il driver audio ALSA (-d alsa ), specificando la scheda au-dio (-d hw:1) ed impostando frequenza, dimensione e numero dei buffer.
+
+Con il comando:
+
+- $jack_control start
+
+Possiamo avviare il server impostato precedentemente
+
+- $jack_control stop
+
+Possiamo fermarlo
+
+Con il comando:
+
+- $jack_connect port1 port2
+
+Possiamo connettere due porte jack insieme da riga di comando.
+
+- **Esempio**:  jack_connect csoundBouncey:output1 system:playback_1
