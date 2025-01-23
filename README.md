@@ -208,3 +208,92 @@ Clicchiamo su OK e Apply.
 
 A questo punto tutto è configurato e siamo pronti a sviluppare la nostra applicazione.
 
+
+## Raspberry Pi – Gestione GPIO.
+
+Per gestire i GPIO della Raspberry è stata utilizzata un libreria open source appositamente sviluppata chiamata WiringPi
+
+https://github.com/WiringPi/WiringPi
+
+Si tratta di una libreria Cpp per Raspberry Pi tramite la quale è possibile gestire i pin digitali, quelli analogici, le comunicazioni SPI, quelle I2C e molto altro.
+La libreria è scritta in Cpp ed è molto efficiente e relativamente semplice da installare e usare.
+
+Prima di avventurarsi nel processo di installazione della libreria è sempre consigliabile controllare se già è presente nel nostro sistema.
+Questa libreria viene infatti molto spesso distribuita insieme al sistema operativo della Raspberry e non è affatto strano che sia già presente nel nostro sistema.
+Per controllare se la libreria è già installata dalla consolle digitare:
+- $gpio-v
+Se il comando restituisce il numero di versione e altre informazioni sulla libreria, possiamo dedurre che la libreria è già installata.
+
+Una volta accertato che la libreria è nel nostro sistema possiamo digitare il seguente comando:
+- $gpio readall
+
+Il quale ci restituisce una panoramica completa di tutti i pin disponibili sulla tua scheda Pi.
+
+![image](https://github.com/user-attachments/assets/f2ddc6cf-a9ba-47f5-9580-5b120675cc3f)
+
+La tabella che viene mostrata a schermo è divisa in 2 parti speculari, e ognuna delle quali rappresenta una delle due file di pin presenti sul connettore di espansione della scheda.
+Per fare un confronto, riporto qui di seguito la piedinatura della Raspberry Pi
+
+![image](https://github.com/user-attachments/assets/0299d545-5042-4ee4-ab2c-f8989818e658)
+
+Ecco il significato di ogni colonna della tabella:
+
+•	Physical : riporta il nome del pin fisico GPIO header, in modo da poter essere localizzato sulla scheda.
+•	V : il "valore" corrente del pin, sostanzialmente questa colonna dice se il pin specificato è set-tato ad un livello BASSO o ALTO.
+•	Mode : un pin deve essere impostato in una determinata "modalità" per eseguire operazioni. Le modalità più comuni per i pin digitali sono INPUT (è possibile leggere il valore dal pin) e OUTPUT (è possibile scrivere un valore sul pin). Puoi anche notare la modalità ALT0, che qui viene utilizzata per il protocollo I2C (SDA, SCL) e il protocollo SPI (MOSI, MISO, SCLK).
+•	Name : se guardi la seconda immagine con la piedi natura del Raspberry Pi, puoi vedere che la colonna "Nome" mostra solo la funzione standard di ciascun pin e, se applicabile, sovrascrive questa funzione standard con la funzione alternativa. 
+E bene tenerete sempre presente che che i numeri GPIO corrispondono alla colonna "wPi" e non alla colonna "BCM".
+•	wPi : questi sono i numeri dei pin effettivamente utilizzati dalla libreria WiringPi. 
+Questa convenzione di numerazione è stata stabilita molto tempo fa quando la libreria Wirin-gPi è stata scritta per la prima volta. Questa numerazione garantisce che i numeri dei pin ri-mangano gli stessi per tutte le revisioni della scheda. A meno che non si utilizzi una scheda molto vecchia (<Raspberry Pi 2), non comunque più senso utilizzare questa convenzione.
+•	BCM : la scheda Raspberry Pi ha un BCM2835 (canale SOC Broadcom). 
+Questa colonna definisce i numeri dei pin e le funzioni alternative per il GPIO header. Questa convenzione di numerazione è ora la più utilizzata nella comunità Raspberry Pi.
+Per ricapitolare, questa tabella aiuta  ad ottenere una rapida panoramica di tutti i pin, quale numero utiliz-zare per ciascun pin e la sua modalità/stato corrente.
+Come regola generale si preferisce utilizzare la convenzione di numerazione BCM rispetto alla convenzio-ne WiringPi.
+
+**Installare la libreria.**
+
+Nel caso in cui la libreria non fosse installata o che nel nostro file system non siano presenti il file .h da in-cludere nel nostro progetto, possiamo installare la libraia in questo modo:
+Scarichiamo il file come .tar o come .zip dal repository ufficiale:
+
+https://github.com/WiringPi/WiringPi
+
+Una volta scompattati i file in una directory eseguiamo il comando:
+
+$./build
+
+La libreria viene compilata automaticamente e tutti i file copiati nelle directory del sistema.
+
+![image](https://github.com/user-attachments/assets/bb377ebd-e8dc-4c8d-8125-7f06a6c5ac77)
+
+Per poter utilizzare la libreria è necessario avere il file .SO da lincare dinamicamente al programma che la utilizzata e il file header .h nel quale sono riportati tutti i prototipi delle funzioni che porteremmo utilizzare nel nostro codice.
+Il file  libwiringPi.so (libreria dinamica) viene copiato nella directory /usr/local/lib
+Mentre gli header ( i file .h) in /usr/local/include.
+Ovviamente i due path dovranno esser inseriti nelle variabili d’ambiente giuste affinché il compilatore li trovi.
+
+**Utilizzo della libreria in un programma c/c++.**
+
+Il segmento di codice seguente mostra un esempio di utilizzo della libreria e mostra come accendere o spegnere un led collegato al BCM pin 17 in base allo stato di un pulsante collegato al BCM pin 18
+```
+#include <wiringPi.h>
+
+#define PIN_LED 17
+#define PIN_BUTTON 18
+
+int main (int argc, char **argv)
+{
+    wiringPiSetupGpio();
+    pinMode(PIN_LED, OUTPUT);
+    pinMode(PIN_BUTTON, INPUT);
+    printf("LED and button pins have beens setup.\n");
+    while (1)
+    {   
+        if (digitalRead(PIN_BUTTON) == HIGH) {
+            digitalWrite(PIN_LED, HIGH);
+        }
+        else {
+            digitalWrite(PIN_LED, LOW);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+}
+```
