@@ -3,15 +3,15 @@ In questo repository trovate alcune guide e alcune spiegazioni relative alle att
 Le guide e le linee di comando riportate in questo documento sono quelle ce ho utilizzato per svolgere e sviluppare il sistema di digitalizzazione del sintetizzatore analogico Viscount PB13.
 
 ## Indice
-- [Terminale Linux Comandi più comuni](Terminale_Linux_Comandi_più_comuni)
-- [Gestione dei pacchetti Apt-get](Gestione_dei_pacchetti_Apt-get)
-- [Abilitare Consolle remota tramite porta seriale](Abilitare_Consolle_remota_tramite_porta_seriale)
-- [Abilitare server VNC](Abilitare_server_VNC)
-- [Installare sul PC un client VNC](Installare_sul_PC_un_client_VNC)
-- [Controllare Jack da linea di comando](Controllare_Jack_da_linea_di_comando)
-- [Installare il framework qt nella Raspberry](Installare_il_framework_qt_nella_Raspberry)
-- [Configurare QtCreator](Configurare_QtCreator)
-- [Raspberry Pi – Gestione GPIO.](Raspberry_Pi_–_Gestione_GPIO.)
+- [Terminale Linux Comandi più comuni](Terminale-Linux-Comandi-più-comuni)
+- [Gestione dei pacchetti Apt-get](Gestione-dei-pacchetti-Apt-get)
+- [Abilitare Consolle remota tramite porta seriale](Abilitare-Consolle-remota-tramite-porta-seriale)
+- [Abilitare server VNC](Abilitare-server-VNC)
+- [Installare sul PC un client VNC](Installare-sul-PC-un-client-VNC)
+- [Controllare Jack da linea di comando](Controllare-Jack-da-linea-di-comando)
+- [Installare il framework qt nella Raspberry](Installare-il-framework-qt-nella-Raspberry)
+- [Configurare QtCreator](Configurare-QtCreator)
+- [Raspberry Pi – Gestione GPIO.](Raspberry_Pi-–-Gestione-GPIO.)
 
  
 ## Terminale Linux Comandi più comuni
