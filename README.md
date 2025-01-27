@@ -1,6 +1,6 @@
-# Digitalizzazione-di-un-sintetizzatore-analogico-PB13
+# Digitalizzazione-di-un-sintetizzatore-analogico-Viscount-PB13
 In questo repository trovate alcune guide e alcune spiegazioni relative alle attività svolte sulla Raspberry Pi nel corso dello sviluppo della mia tesi di laurea triennale in Ingegneria elettronica conseguita presso l’università Politecnica di Ancona.
-Le guide e le linee di comando riportate in questo documento sono quelle ce ho utilizzato per svolgere e sviluppare il sistema di digitalizzazione del sintetizzatore analogico Viscount PB13.
+Le guide e le linee di comando riportate in questo documento sono quelle che ho utilizzato per svolgere e sviluppare il sistema di digitalizzazione per sintetizzatore analogico Viscount PB13.
 
 ## Indice
 - [Terminale Linux Comandi più comuni](#Terminale-Linux-Comandi-più-comuni)
